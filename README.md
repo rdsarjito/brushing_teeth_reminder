@@ -1,4 +1,4 @@
-# scanner
+# brushing_teeth_reminder
 
 A new Flutter project.
 
