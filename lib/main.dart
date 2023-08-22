@@ -8,7 +8,7 @@ import 'scanner.dart';
 void main() => runApp(const MaterialApp(home: MyApp()));
 
 class MyApp extends StatefulWidget {
-  final String  fromOtherSide;
+  final String fromOtherSide;
 
   const MyApp({
     Key? key,
@@ -51,15 +51,12 @@ class _MyAppState extends State<MyApp> {
           locale: "en_US",
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
-          
           // selectedDayPredicate: Ele,
           focusedDay: DateTime.now(),
           // onDaySelected: _onDaySelected,
           // onFormatChanged: ,
         ),
-
       ],
-      
     );
   }
 
@@ -67,40 +64,46 @@ class _MyAppState extends State<MyApp> {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: const IconThemeData(size: 22),
-      backgroundColor: const Color(0xFF801E48),
+      backgroundColor: Colors.blue,
       visible: true,
       curve: Curves.bounceIn,
       children: [
         // FAB 1
         SpeedDialChild(
-          child: const Icon(Icons.qr_code_scanner_rounded),
-          backgroundColor: const Color(0xFF801E48),
+          child: const Icon(
+            Icons.qr_code,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.blue,
           onTap: () {  
             _awaitReturnValueFromScanner(context);
           },
-          label: 'Button 1',
+          label: 'Scanner',
           labelStyle: const TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.white,
             fontSize: 16.0
           ),
-          labelBackgroundColor: const Color(0xFF801E48)
+          labelBackgroundColor: Colors.blue
         ),
         // FAB 2
         SpeedDialChild(
-          child: const Icon(Icons.circle_notifications_rounded),
-          backgroundColor: const Color(0xFF801E48),
+          child: const Icon(
+            Icons.notifications,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.blue,
           onTap: () {  
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const MyNotification(),
             ));
           },
-          label: 'Button 2',
+          label: 'Notifications',
           labelStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.white,
               fontSize: 16.0),
-          labelBackgroundColor: const Color(0xFF801E48)
+          labelBackgroundColor: Colors.blue
         )
       ],
     );
