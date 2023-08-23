@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
-
 import 'Services/notifi_service.dart';
 
 DateTime scheduleTime = DateTime.now();
@@ -19,21 +18,21 @@ class _MyNotificationState extends State<MyNotification> {
       appBar: AppBar(
         title: const Text('Notification Set Up'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            DatePickerTxt(),
-            ScheduleBtn(),
-          ],
-        ),
-      )
-      // body: Column(
-      //   children: [
-      //     dateChangerSection,
-      //     dateChangerSection
-      //   ],
+      // body: const Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       DatePickerTxt(),
+      //       ScheduleBtn(),
+      //     ],
+      //   ),
       // )
+      body: Column(
+        children: [
+          dateChangerSection,
+          dateChangerSection
+        ],
+      )
 
     );
   }

@@ -4,12 +4,22 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:scanner/main.dart';
+import 'package:scanner/home_page.dart';
 
 void main() => runApp(const MaterialApp(home: MyQRScanner()));
 
 class MyQRScanner extends StatelessWidget {
   const MyQRScanner({Key? key}) : super(key: key);
+
+    void _sendDataBack(BuildContext context) {
+    String textToSendBack = "rama";
+    // debugPrint('movieTitle: $textToSendBack');
+     Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MyHomePage(fromOtherSide: "succes"),
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +28,10 @@ class MyQRScanner extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const QRViewExample(),
-            ));
+            _sendDataBack(context);
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => const QRViewExample(),
+            // ));
           },
           child: const Text('qrView'),
         ),
@@ -175,9 +186,6 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller.resumeCamera();
 
     controller.scannedDataStream.listen((scanData) {
-      var data = scanData.code;
-      debugPrint('===============scanData: $data');
-      // log('========================ScanData: $scanData');
       setState(() {
         if(scanData.code == "rama") {
           _sendDataBack(context);
@@ -202,7 +210,7 @@ class _QRViewExampleState extends State<QRViewExample> {
      Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MyApp(fromOtherSide: textToSendBack),
+        builder: (context) => MyHomePage(fromOtherSide: textToSendBack),
       ));
 
       controller!.dispose();
