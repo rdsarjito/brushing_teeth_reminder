@@ -15,15 +15,11 @@ class MyHomePage extends StatefulWidget {
     this.fromOtherSide = ''
   }): super(key: key);
 
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String fromOtherSide = "";
-  String wkwk = "wkwk";
-
   @override
   void dispose(){
     super.dispose();
@@ -40,9 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
             bottom: 25,
             right: 20,
             child: floatingButtonMore(),
-
           ),
-          Text("data: $fromOtherSide")
         ],
       ),
     );

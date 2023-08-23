@@ -11,31 +11,11 @@ void main() => runApp(const MaterialApp(home: MyQRScanner()));
 class MyQRScanner extends StatelessWidget {
   const MyQRScanner({Key? key}) : super(key: key);
 
-    void _sendDataBack(BuildContext context) {
-    String textToSendBack = "rama";
-    // debugPrint('movieTitle: $textToSendBack');
-     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MyHomePage(fromOtherSide: "succes"),
-      ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Demo Home Page')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _sendDataBack(context);
-            // Navigator.of(context).push(MaterialPageRoute(
-            //   builder: (context) => const QRViewExample(),
-            // ));
-          },
-          child: const Text('qrView'),
-        ),
-      ),
+      body: const QRViewExample(),
     );
   }
 }
