@@ -139,6 +139,7 @@ class ScheduleBtn extends StatelessWidget {
         NotificationService().scheduleNotification(
             id: idMON,
             title: 'Scheduled Notification',
+            payLoad: "test",
             body: '$scheduleTime',
             scheduledNotificationDateTime: scheduleTime);
       },

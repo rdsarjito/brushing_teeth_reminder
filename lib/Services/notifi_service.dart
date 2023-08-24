@@ -1,11 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import 'package:scanner/scanner.dart';
 class NotificationService {
-
+  
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
+      
+  void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
+    );
+}
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -21,11 +30,12 @@ class NotificationService {
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {});
+        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+
   }
 
   notificationDetails() {
+
     return const NotificationDetails(
       android: AndroidNotificationDetails('channelId', 'channelName',
         importance: Importance.high, priority: Priority.high,
@@ -36,10 +46,6 @@ class NotificationService {
     );
   }
 
-  Future showNotification({id, String? title, String? body, String? payLoad}) async {
-    return notificationsPlugin.show(
-      id, title, body, await notificationDetails());
-  }
 
   Future scheduleNotification(
       {id,
@@ -47,6 +53,7 @@ class NotificationService {
       String? body,
       String? payLoad,
       required DateTime scheduledNotificationDateTime}) async {
+          
     return notificationsPlugin.zonedSchedule(
         id,
         title,
