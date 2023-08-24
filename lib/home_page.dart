@@ -5,8 +5,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'notification.dart';
 import 'scanner.dart';
 
-// void main() => runApp(const MaterialApp(home: MyHomePage()));
-
 class MyHomePage extends StatefulWidget {
   final String fromOtherSide;
 

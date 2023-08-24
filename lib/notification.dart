@@ -16,10 +16,12 @@ class _MyNotificationState extends State<MyNotification> {
     {
       "idMON" : 0,
       "Name" : "Morning",
+      "Icon": Icons.wb_sunny_rounded
     },
     {
       "idMON" : 1,
-      "Name" : "Night"
+      "Name" : "Night",
+      "Icon": Icons.mode_night_rounded
     },
   ];
 
@@ -31,56 +33,56 @@ class _MyNotificationState extends State<MyNotification> {
       ),
       body: ListView(
         children: myListMON.map((data) {
-
-          return 
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.blue, 
-                    child: IconButton(
-                      highlightColor: Colors.blueGrey,
-                      icon: const Icon(
-                        Icons.wb_sunny_rounded,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
+          debugPrint(data['icon']);
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue, 
+                  child: IconButton(
+                    highlightColor: Colors.blueGrey,
+                    icon: Icon(
+                      data['Icon'] ,
+                      // Icons.wb_sunny_rounded,
+                      color: Colors.white,
                     ),
+                    onPressed: () {},
                   ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        '${data['Name']}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      '${data['Name']}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child:  Column(
+                      children : <Widget>[
+                        Expanded(
+                          child: DatePickerTxt(idMON: data['idMON'])
                         ),
-                      ),
-                      
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child:  Column(
-                        children : <Widget>[
-                          Expanded(
-                            child: DatePickerTxt(idMON: data['idMON'])
-                          ),
-                          Expanded(
-                            child: ScheduleBtn(idMON: data['idMON'])
-                          ),
-                      ]),
-                    )
-                  ),
-                ]
-              ),
-            );
+                        Expanded(
+                          child: ScheduleBtn(idMON: data['idMON'])
+                        ),
+                    ]),
+                  )
+                ),
+              ]
+            ),
+          );
         }).toList(),
       )
     );

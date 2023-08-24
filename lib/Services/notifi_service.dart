@@ -27,9 +27,13 @@ class NotificationService {
 
   notificationDetails() {
     return const NotificationDetails(
-        android: AndroidNotificationDetails('channelId', 'channelName',
-            importance: Importance.max),
-        iOS: DarwinNotificationDetails());
+      android: AndroidNotificationDetails('channelId', 'channelName',
+        importance: Importance.high, priority: Priority.high,
+        sound: RawResourceAndroidNotificationSound('alarm'),
+        playSound: true,
+      ),
+      iOS: DarwinNotificationDetails()
+    );
   }
 
   Future showNotification({id, String? title, String? body, String? payLoad}) async {
