@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scanner/home_page.dart';
 
-void main() => runApp(const MaterialApp(home: MyQRScanner()));
-
 class MyQRScanner extends StatelessWidget {
   const MyQRScanner({Key? key}) : super(key: key);
 
@@ -186,7 +184,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-    String textToSendBack = "succes_morning";
+    String textToSendBack = "succes";
      Navigator.push(
       context,
       MaterialPageRoute(

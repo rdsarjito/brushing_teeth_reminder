@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 

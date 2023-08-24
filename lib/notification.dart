@@ -33,7 +33,6 @@ class _MyNotificationState extends State<MyNotification> {
       ),
       body: ListView(
         children: myListMON.map((data) {
-          debugPrint(data['icon']);
           return Container(
             padding: const EdgeInsets.all(16),
             child: Row(
