@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+typedef OnPencet = void Function (String); 
+
+
 class ButtonRama extends StatelessWidget {
+  
   final String tulisan;
-  final VoidCallback onPencet;
+  final OnPencet onPencet;
   const ButtonRama(
     {super.key, required this.tulisan, required this.onPencet}
   );
@@ -13,7 +17,7 @@ class ButtonRama extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            onPencet();
+            onPencet("Rama");
           },
           child: Text("Test $tulisan"),
         )

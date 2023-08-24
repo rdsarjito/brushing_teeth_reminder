@@ -12,85 +12,87 @@ class MyNotification extends StatefulWidget {
 }
 
 class _MyNotificationState extends State<MyNotification> {
+  final List<Map<String, dynamic>> myListMON = [
+    {
+      "idMON" : 0,
+      "Name" : "Morning",
+    },
+    {
+      "idMON" : 1,
+      "Name" : "Night"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notification Set Up'),
       ),
-      // body: const Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       DatePickerTxt(),
-      //       ScheduleBtn(),
-      //     ],
-      //   ),
-      // )
-      body: Column(
-        children: [
-          dateChangerSection,
-          dateChangerSection
-        ],
-      )
+      body: ListView(
+        children: myListMON.map((data) {
 
+          return 
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.blue, 
+                    child: IconButton(
+                      highlightColor: Colors.blueGrey,
+                      icon: const Icon(
+                        Icons.wb_sunny_rounded,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        '${data['Name']}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child:  Column(
+                        children : <Widget>[
+                          Expanded(
+                            child: DatePickerTxt(idMON: data['idMON'])
+                          ),
+                          Expanded(
+                            child: ScheduleBtn(idMON: data['idMON'])
+                          ),
+                      ]),
+                    )
+                  ),
+                ]
+              ),
+            );
+        }).toList(),
+      )
     );
   }
 }
 
-Widget dateChangerSection = Container(
-  padding: const EdgeInsets.all(16),
-  child: Row(
-    children: [
-      CircleAvatar(
-        radius: 30,
-        backgroundColor: Colors.blue, 
-        child: IconButton(
-          highlightColor: Colors.blueGrey,
-          icon: const Icon(
-            Icons.wb_sunny_rounded,
-            color: Colors.white,
-            
-          ),
-          onPressed: () {},
-        ),
-      ),
-      Expanded(
-        child: Container(
-          margin: const EdgeInsets.only(left: 10.0),
-          child: const Text(
-            'Morning',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.blue,
-              fontWeight: FontWeight.w500
-            ),
-          ),
-        ),
-      ),
-      Expanded(
-        child: Container(
-          height: 100,
-          padding: const EdgeInsets.only(bottom: 8),
-          child: const Column(
-            children : <Widget>[
-              Expanded(
-                child: DatePickerTxt()
-              ),
-              Expanded(
-                child: ScheduleBtn()
-              ),
-          ]),
-        )
-      ),
-    ]
-  ),
-);
-
-
 class DatePickerTxt extends StatefulWidget {
+  final int idMON;
+
   const DatePickerTxt({
     Key? key,
+    this.idMON = 0,
   }) : super(key: key);
 
   @override
@@ -118,17 +120,23 @@ class _DatePickerTxtState extends State<DatePickerTxt> {
 }
 
 class ScheduleBtn extends StatelessWidget {
+  final int idMON;
+
   const ScheduleBtn({
     Key? key,
+    this.idMON = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('movieTitle: $idMON');
+
     return ElevatedButton(
       child: const Text('Schedule notifications'),
       onPressed: () {
         debugPrint('Notification Scheduled for $scheduleTime');
         NotificationService().scheduleNotification(
+            id: idMON,
             title: 'Scheduled Notification',
             body: '$scheduleTime',
             scheduledNotificationDateTime: scheduleTime);

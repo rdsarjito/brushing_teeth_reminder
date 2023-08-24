@@ -3,6 +3,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
+
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -31,14 +32,13 @@ class NotificationService {
         iOS: DarwinNotificationDetails());
   }
 
-  Future showNotification(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
+  Future showNotification({id, String? title, String? body, String? payLoad}) async {
     return notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+      id, title, body, await notificationDetails());
   }
 
   Future scheduleNotification(
-      {int id = 0,
+      {id,
       String? title,
       String? body,
       String? payLoad,

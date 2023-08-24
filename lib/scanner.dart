@@ -186,7 +186,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-    String textToSendBack = "rama";
+    String textToSendBack = "succes_morning";
      Navigator.push(
       context,
       MaterialPageRoute(
