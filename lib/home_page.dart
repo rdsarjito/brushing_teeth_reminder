@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:disable_battery_optimization/disable_battery_optimization.dart';
+import 'package:scanner/event.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -7,18 +7,22 @@ import 'notification.dart';
 import 'scanner.dart';
 
 class MyHomePage extends StatefulWidget {
-  final String fromOtherSide;
+  final int fromOtherSide;
+  
 
   const MyHomePage({
     Key? key,
-    this.fromOtherSide = ''
+    this.fromOtherSide = 0
   }): super(key: key);
+  
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   void dispose(){
     super.dispose();
@@ -26,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // widget.fromOtherSide
+    // debugPrint("test " + widget.fromOtherSide);
     return Scaffold(
       appBar: AppBar(title: const Text('Brushing Teeth Reminder')),
       body: Stack(
@@ -36,6 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 20,
             child: floatingButtonMore(),
           ),
+          Positioned(
+            bottom: 10,
+            left: 10,
+            child: MyEvenItem(fromOtherSide: widget.fromOtherSide),
+          )
         ],
       ),
     );

@@ -42,12 +42,26 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller!.resumeCamera();
   }
 
+  //   void _test() {
+  //   String textToSendBack = "succes";
+  //    Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => MyHomePage(fromOtherSide: textToSendBack),
+  //     ));
+
+  //     controller!.dispose();
+  //     controller!.stopCamera();
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
+          // ElevatedButton(onPressed: _test, child: Text("123")),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -185,7 +199,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-    String textToSendBack = "succes";
+    int textToSendBack = 1;
      Navigator.push(
       context,
       MaterialPageRoute(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'package:get/get.dart';
+
 import 'Services//notifi_service.dart';
 import 'home_page.dart';
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Brushing Teeth Reminder',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

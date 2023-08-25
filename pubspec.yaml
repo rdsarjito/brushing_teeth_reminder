@@ -43,6 +43,8 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   auto_start_flutter: ^0.1.1
   disable_battery_optimization: ^1.1.0+1
+  get: ^4.6.5
+  getwidget: ^4.0.0
   
 
 dev_dependencies:

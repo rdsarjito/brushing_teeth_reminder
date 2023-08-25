@@ -4,16 +4,22 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:scanner/scanner.dart';
+
+import 'package:get/get.dart';
+
+@pragma('vm:entry-point')
+void notificationTapBackground(NotificationResponse notificationResponse) {
+ Get.to(const MyQRScanner());
+
+}
+
 class NotificationService {
   
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
       
   void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
-    );
+   
 }
 
   Future<void> initNotification() async {
@@ -30,7 +36,13 @@ class NotificationService {
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+        onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
+        Get.to(const MyQRScanner());
+    },
+
+        onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
+          
+        );
 
   }
 
@@ -45,6 +57,8 @@ class NotificationService {
       iOS: DarwinNotificationDetails()
     );
   }
+
+
 
 
   Future scheduleNotification(
@@ -67,4 +81,5 @@ class NotificationService {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
+
 }
