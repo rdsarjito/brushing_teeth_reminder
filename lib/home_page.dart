@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:scanner/event.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -8,11 +9,13 @@ import 'scanner.dart';
 
 class MyHomePage extends StatefulWidget {
   final int fromOtherSide;
+  final List<Map<String, dynamic>> test;
   
 
   const MyHomePage({
     Key? key,
-    this.fromOtherSide = 0
+    this.fromOtherSide = 0,
+    required this.test
   }): super(key: key);
   
 
@@ -31,7 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // widget.fromOtherSide
-    // debugPrint("test " + widget.fromOtherSide);
+    // inspect("object");
+    // inspect(widget.test);
+    print(inspect(widget.test));
     return Scaffold(
       appBar: AppBar(title: const Text('Brushing Teeth Reminder')),
       body: Stack(
@@ -42,11 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 20,
             child: floatingButtonMore(),
           ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-            child: MyEvenItem(fromOtherSide: widget.fromOtherSide),
-          )
         ],
       ),
     );

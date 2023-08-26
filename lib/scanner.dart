@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'dart:io';
+
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,26 +33,34 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
-  }
-
-  //   void _test() {
-  //   String textToSendBack = "succes";
-  //    Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => MyHomePage(fromOtherSide: textToSendBack),
-  //     ));
-
-  //     controller!.dispose();
-  //     controller!.stopCamera();
+  // @override
+  // void reassemble() {
+  //   super.reassemble();
+  //   if (Platform.isAndroid) {
+  //     controller!.pauseCamera();
+  //   }
+  //   controller!.resumeCamera();
   // }
+
+  // @override
+    void _test() {
+    Map<String, dynamic> testObject = {
+      "idMON" : 0,
+      "Name" : "Morning",
+      "Icon": Icons.wb_sunny_rounded
+    };
+           inspect(testObject);
+      
+     Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MyHomePage(test: [testObject]),
+      ));
+
+
+            controller!.dispose();
+      controller!.stopCamera();
+  }
 
 
   @override
@@ -61,7 +69,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
-          // ElevatedButton(onPressed: _test, child: Text("123")),
+          ElevatedButton(onPressed: _test, child: Text("123")),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -117,6 +125,11 @@ class _QRViewExampleState extends State<QRViewExample> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      // ElevatedButton(
+                      //   // style: style,
+                      //   onPressed:  _test,
+                      //   child: const Text('TEST 123'),
+                      // ),
                       Container(
                         margin: const EdgeInsets.all(8),
                         child: ElevatedButton(
@@ -199,11 +212,18 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-    int textToSendBack = 1;
+    Map<String, dynamic> testObject = {
+      "idMON" : 0,
+      "Name" : "Morning",
+      "Icon": Icons.wb_sunny_rounded
+    };
+      
      Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MyHomePage(fromOtherSide: textToSendBack),
+        builder: (context) => MyHomePage(
+          test: [testObject]
+          ),
       ));
 
       controller!.dispose();
