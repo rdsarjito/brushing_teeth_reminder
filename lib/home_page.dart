@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import 'package:getwidget/getwidget.dart';
-
 import 'notification.dart';
 import 'scanner.dart';
 
@@ -26,18 +24,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Map<String, dynamic>> listPeriod = [
-        {
-      "idMON" : 0,
-      "Name" : "Morning",
-      "Icon": Icons.done
-    },
-    {
-      "idMON" : 1,
-      "Name" : "Night",
-      "Icon": Icons.done
-    },
-  ];
+  final List<Map<String, dynamic>> listPeriod = [];
 
   @override
   void dispose(){

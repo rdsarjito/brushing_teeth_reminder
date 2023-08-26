@@ -50,16 +50,18 @@ class _QRViewExampleState extends State<QRViewExample> {
 
     if (now.hour >= 7 && now.hour <= 12) {
       testObject = {
+        "idMON" : 0,
+        "Name" : "Morning",
+        "Icon": Icons.done
+      };
+    } else if (now.hour >= 19 && now.hour <= 23) {
+      testObject = {
         "idMON" : 1,
         "Name" : "Night",
         "Icon": Icons.done
       };
     } else {
-      testObject = {
-        "idMON" : 0,
-        "Name" : "Morning",
-        "Icon": Icons.done
-      };
+      testObject = {};
     }
     
     Navigator.push(
