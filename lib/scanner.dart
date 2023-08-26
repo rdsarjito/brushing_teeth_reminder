@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,33 +33,43 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
-  // @override
-  // void reassemble() {
-  //   super.reassemble();
-  //   if (Platform.isAndroid) {
-  //     controller!.pauseCamera();
-  //   }
-  //   controller!.resumeCamera();
-  // }
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    }
+    controller!.resumeCamera();
+  }
 
   // @override
-    void _test() {
-    Map<String, dynamic> testObject = {
-      "idMON" : 0,
-      "Name" : "Morning",
-      "Icon": Icons.wb_sunny_rounded
-    };
-           inspect(testObject);
-      
-     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MyHomePage(test: [testObject]),
-      ));
+  void _test() {
+    Map<String, dynamic> testObject = {};
 
+    final now = TimeOfDay.now();
 
-            controller!.dispose();
-      controller!.stopCamera();
+    if (now.hour >= 7 && now.hour <= 12) {
+      testObject = {
+        "idMON" : 1,
+        "Name" : "Night",
+        "Icon": Icons.done
+      };
+    } else {
+      testObject = {
+        "idMON" : 0,
+        "Name" : "Morning",
+        "Icon": Icons.done
+      };
+    }
+    
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MyHomePage(period: [testObject]),
+    ));
+
+    controller!.dispose();
+    controller!.stopCamera();
   }
 
 
@@ -213,21 +223,19 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   void _sendDataBack(BuildContext context) {
     Map<String, dynamic> testObject = {
-      "idMON" : 0,
-      "Name" : "Morning",
-      "Icon": Icons.wb_sunny_rounded
+      "idMON" : 1,
+      "Name" : "Night",
+      "Icon": Icons.mode_night_rounded
     };
       
-     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MyHomePage(
-          test: [testObject]
-          ),
-      ));
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MyHomePage(period: [testObject]),
+    ));
 
-      controller!.dispose();
-      controller!.stopCamera();
+    controller!.dispose();
+    controller!.stopCamera();
   }
 
   @override

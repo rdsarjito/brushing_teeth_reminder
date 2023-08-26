@@ -4,27 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'package:getwidget/getwidget.dart';
+
 import 'notification.dart';
 import 'scanner.dart';
 
 class MyHomePage extends StatefulWidget {
   final int fromOtherSide;
-  final List<Map<String, dynamic>> test;
+  final List<Map<String, dynamic>> period;
   
 
   const MyHomePage({
     Key? key,
     this.fromOtherSide = 0,
-    required this.test
+    required this.period
   }): super(key: key);
   
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Map<String, dynamic>> listPeriod = [
+        {
+      "idMON" : 0,
+      "Name" : "Morning",
+      "Icon": Icons.done
+    },
+    {
+      "idMON" : 1,
+      "Name" : "Night",
+      "Icon": Icons.done
+    },
+  ];
 
   @override
   void dispose(){
@@ -33,24 +46,79 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    listPeriod.addAll(widget.period);
     // widget.fromOtherSide
     // inspect("object");
     // inspect(widget.test);
-    print(inspect(widget.test));
+    print(inspect(listPeriod));
     return Scaffold(
       appBar: AppBar(title: const Text('Brushing Teeth Reminder')),
-      body: Stack(
-        children: [
-          calendarWidget(),
-          Positioned(
-            bottom: 25,
-            right: 20,
-            child: floatingButtonMore(),
-          ),
-        ],
+      body: Container(
+        // padding:EdgeInsets.all(10),
+        child: Stack(
+          children: <Widget>[
+            calendarWidget(),
+            Positioned(
+              top: 350,
+              left: 30,
+              height: 200,
+              width: 250,
+              child: periodWidget(),
+            ),
+            Positioned(
+              bottom: 25,
+              right: 20,
+              height: 50,
+              width: 50,
+              child: floatingButtonMore(),
+            ),
+          ],
+        ),
       ),
     );
   }
+
+  Widget periodWidget() {
+    return Column(
+      children: listPeriod.map((data) {
+          return Container(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue, 
+                  child: IconButton(
+                    highlightColor: Colors.blueGrey,
+                    icon: Icon(
+                      data['Icon'] ,
+                      // Icons.wb_sunny_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      '${data['Name']}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    
+                  ),
+                ),
+              ]
+            ),
+          );
+        }).toList(),
+      );
+  }
+
 
   Widget calendarWidget(){
     return Column(
