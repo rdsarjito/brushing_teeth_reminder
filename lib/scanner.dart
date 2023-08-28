@@ -49,7 +49,6 @@ class _QRViewExampleState extends State<QRViewExample> {
     // final now = TimeOfDay.now();
     final now = DateTime.now();
     
-
     if (now.hour >= 7 && now.hour <= 12) {
       testObject = {
         "idMON" : 0,
@@ -228,32 +227,33 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-   Map<String, dynamic> period = {};
+   Map<String, dynamic> testObject = {};
 
-    final now = TimeOfDay.now();
-
+    // final now = TimeOfDay.now();
+    final now = DateTime.now();
+    
     if (now.hour >= 7 && now.hour <= 12) {
-      period = {
+      testObject = {
         "idMON" : 0,
         "Name" : "Morning",
-        "periodDate" : DateTime.now(),
-        "Icon": Icons.done
+        "Icon": Icons.done,
+        "periodDate" : DateTime(now.year, now.month, now.day),
       };
-    } else if (now.hour >= 19 && now.hour <= 23) {
-      period = {
+    } else if (now.hour >= 16 && now.hour <= 23) {
+      testObject = {
         "idMON" : 1,
         "Name" : "Night",
-        "periodDate" : DateTime.now(),
-        "Icon": Icons.done
+        "Icon": Icons.done,
+        "periodDate" : DateTime(now.year, now.month, now.day),
       };
     } else {
-      period = {};
+      testObject = {};
     }
     
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => MyHomePage(periods: [period]),
+      builder: (context) => MyHomePage(periods: [testObject]),
     ));
 
     controller!.dispose();
