@@ -46,19 +46,23 @@ class _QRViewExampleState extends State<QRViewExample> {
   void _test() {
     Map<String, dynamic> testObject = {};
 
-    final now = TimeOfDay.now();
+    // final now = TimeOfDay.now();
+    final now = DateTime.now();
+    
 
     if (now.hour >= 7 && now.hour <= 12) {
       testObject = {
         "idMON" : 0,
         "Name" : "Morning",
-        "Icon": Icons.done
+        "Icon": Icons.done,
+        "periodDate" : DateTime(now.year, now.month, now.day),
       };
-    } else if (now.hour >= 19 && now.hour <= 23) {
+    } else if (now.hour >= 16 && now.hour <= 23) {
       testObject = {
         "idMON" : 1,
         "Name" : "Night",
-        "Icon": Icons.done
+        "Icon": Icons.done,
+        "periodDate" : DateTime(now.year, now.month, now.day),
       };
     } else {
       testObject = {};
@@ -67,7 +71,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => MyHomePage(period: [testObject]),
+      builder: (context) => MyHomePage(periods: [testObject]),
     ));
 
     controller!.dispose();
@@ -224,25 +228,35 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-    Map<String, dynamic> testObject = {
-      "idMON" : 1,
-      "Name" : "Night",
-      "Icon": Icons.mode_night_rounded
-    };
-      
+   Map<String, dynamic> period = {};
+
+    final now = TimeOfDay.now();
+
+    if (now.hour >= 7 && now.hour <= 12) {
+      period = {
+        "idMON" : 0,
+        "Name" : "Morning",
+        "periodDate" : DateTime.now(),
+        "Icon": Icons.done
+      };
+    } else if (now.hour >= 19 && now.hour <= 23) {
+      period = {
+        "idMON" : 1,
+        "Name" : "Night",
+        "periodDate" : DateTime.now(),
+        "Icon": Icons.done
+      };
+    } else {
+      period = {};
+    }
+    
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => MyHomePage(period: [testObject]),
+      builder: (context) => MyHomePage(periods: [period]),
     ));
 
     controller!.dispose();
     controller!.stopCamera();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
   }
 }

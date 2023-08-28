@@ -3,28 +3,33 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:intl/intl.dart';
 
 import 'notification.dart';
 import 'scanner.dart';
 
+final now = DateTime.now();
+
 class MyHomePage extends StatefulWidget {
   final int fromOtherSide;
-  final List<Map<String, dynamic>> period;
+  final List<Map<String, dynamic>> periods;
   
 
   const MyHomePage({
     Key? key,
     this.fromOtherSide = 0,
-    required this.period
+    required this.periods
   }): super(key: key);
   
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Map<String, dynamic>> listPeriod = [];
+  DateTime choosenDate = DateTime(now.year, now.month, now.day);
+
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
 
   @override
   void dispose(){
@@ -33,11 +38,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    listPeriod.addAll(widget.period);
+    // periods.addAll(widget.period);
+    // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(choosenDate);
+    // debugPrint(formattedDate);
     // widget.fromOtherSide
     // inspect("object");
     // inspect(widget.test);
-    print(inspect(listPeriod));
+    // print(inspect(widget.periods));
     return Scaffold(
       appBar: AppBar(title: const Text('Brushing Teeth Reminder')),
       body: Container(
@@ -66,8 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget periodWidget() {
+    final filterByDate = widget.periods.where((period) => period['periodDate'] == choosenDate).toList();
+    // print(inspect(widget.periods[{'idMON'}]));
+    // print(testObject["idMON"]);
+    // print(inspect(resultBydate));
+    print(inspect(choosenDate));
+
     return Column(
-      children: listPeriod.map((data) {
+      children: filterByDate.map((data) {
           return Container(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Row(
@@ -79,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     highlightColor: Colors.blueGrey,
                     icon: Icon(
                       data['Icon'] ,
-                      // Icons.wb_sunny_rounded,
                       color: Colors.white,
                     ),
                     onPressed: () {},
@@ -96,7 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontWeight: FontWeight.w500
                       ),
                     ),
-                    
                   ),
                 ),
               ]
@@ -106,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
       );
   }
 
-
   Widget calendarWidget(){
     return Column(
       children: [
@@ -114,11 +124,21 @@ class _MyHomePageState extends State<MyHomePage> {
           locale: "en_US",
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
-          // selectedDayPredicate: Ele,
-          focusedDay: DateTime.now(),
-          // onDaySelected: _onDaySelected,
-          // onFormatChanged: ,
+          focusedDay: _focusedDay,
+          calendarFormat: _calendarFormat,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
+              final test = DateTime.parse(formattedDate);
+              choosenDate = test;
+            });
+          },
+          calendarStyle: CalendarStyle(
+            outsideDaysVisible: false,
+          ),
         ),
+        SizedBox(height: 0.8),
       ],
     );
   }
