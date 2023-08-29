@@ -46,31 +46,28 @@ class _QRViewExampleState extends State<QRViewExample> {
   void _test() {
     Map<String, dynamic> testObject = {};
 
-    // final now = TimeOfDay.now();
     final now = DateTime.now();
     
-    if (now.hour >= 7 && now.hour <= 12) {
+    if(now.hour >= 05 && now.hour <= 12) {
       testObject = {
         "idMON" : 0,
         "Name" : "Morning",
-        "Icon": Icons.done,
-        "periodDate" : DateTime(now.year, now.month, now.day),
+        "Icon": Icons.done.toString(),
+        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
-    } else if (now.hour >= 16 && now.hour <= 23) {
+    } else if (now.hour >= 16 && now.minute <= 24) {
       testObject = {
         "idMON" : 1,
         "Name" : "Night",
-        "Icon": Icons.done,
-        "periodDate" : DateTime(now.year, now.month, now.day),
+        "Icon": Icons.done.toString(),
+        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
-    } else {
-      testObject = {};
     }
     
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => MyHomePage(periods: [testObject]),
+      builder: (context) => MyHomePage(period: testObject),
     ));
 
     controller!.dispose();
@@ -227,33 +224,30 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _sendDataBack(BuildContext context) {
-   Map<String, dynamic> testObject = {};
+    Map<String, dynamic> testObject = {};
 
-    // final now = TimeOfDay.now();
     final now = DateTime.now();
     
-    if (now.hour >= 7 && now.hour <= 15) {
+    if(now.hour >= 05 && now.hour <= 12) {
       testObject = {
         "idMON" : 0,
         "Name" : "Morning",
-        "Icon": Icons.done,
-        "periodDate" : DateTime(now.year, now.month, now.day),
+        "Icon": Icons.done.toString(),
+        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
-    } else if (now.hour >= 15 && now.hour <= 23) {
+    } else if (now.hour >= 16 && now.minute <= 24) {
       testObject = {
         "idMON" : 1,
         "Name" : "Night",
-        "Icon": Icons.done,
-        "periodDate" : DateTime(now.year, now.month, now.day),
+        "Icon": Icons.done.toString(),
+        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
-    } else {
-      testObject = {};
     }
     
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => MyHomePage(periods: [testObject]),
+      builder: (context) => MyHomePage(period: testObject),
     ));
 
     controller!.dispose();

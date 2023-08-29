@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'notification.dart';
 import 'scanner.dart';
@@ -12,12 +14,12 @@ final now = DateTime.now();
 
 class MyHomePage extends StatefulWidget {
   final int fromOtherSide;
-  final List<Map<String, dynamic>> periods;
+  final Map<String, dynamic> period;
   
   const MyHomePage({
     Key? key,
     this.fromOtherSide = 0,
-    required this.periods
+    required this.period
   }): super(key: key);
   
   @override
@@ -25,13 +27,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Map<String, dynamic>> periods = [];
   DateTime today = DateTime.now();
   DateTime choosenDate = DateTime(now.year, now.month, now.day);
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
   @override
-  void dispose(){
-    super.dispose();
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    final prefs = await SharedPreferences.getInstance();
+    String? getPrefsPeriods = prefs.getString('prefsPeriods');
+
+    if(getPrefsPeriods != null) {
+      periods = List.from(json.decode(getPrefsPeriods!) as List);
+    }
+
+    periods.add(widget.period);
+    String encodePrefsPeriods = json.encode(periods);
+    debugPrint("WTF");
+    print(inspect(encodePrefsPeriods));
+    prefs.setString('prefsPeriods', encodePrefsPeriods);
   }
 
   void _onDaySelected(selectedDay, focusedDay) {
@@ -45,6 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+  final Future<String> _calculation = Future<String>.delayed(
+    const Duration(seconds: 1),
+    () => 'Data Loaded',
+  );
     // periods.addAll(widget.period);
     // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(choosenDate);
     // debugPrint(formattedDate);
@@ -54,38 +74,74 @@ class _MyHomePageState extends State<MyHomePage> {
     // print(inspect(widget.periods));
     return Scaffold(
       appBar: AppBar(title: const Text('Brushing Teeth Reminder')),
-      body: Container(
-        // padding:EdgeInsets.all(10),
-        child: Stack(
-          children: <Widget>[
-            calendarWidget(),
-            Positioned(
-              top: 350,
-              left: 30,
-              height: 200,
-              width: 250,
-              child: periodWidget(),
+      body: FutureBuilder<String>(
+        future: _calculation,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          return Container(
+            // padding:EdgeInsets.all(10),
+            child: Stack(
+              children: <Widget>[
+                calendarWidget(),
+                Positioned(
+                  top: 350,
+                  left: 30,
+                  height: 200,
+                  width: 250,
+                  child: periodWidget(),
+                ),
+                Positioned(
+                  bottom: 25,
+                  right: 20,
+                  height: 50,
+                  width: 50,
+                  child: floatingButtonMore(),
+                ),
+              ],
             ),
-            Positioned(
-              bottom: 25,
-              right: 20,
-              height: 50,
-              width: 50,
-              child: floatingButtonMore(),
-            ),
-          ],
-        ),
-      ),
+          );
+        }
+      )
+
+      // body: Container(
+      //   // padding:EdgeInsets.all(10),
+      //   child: Stack(
+      //     children: <Widget>[
+      //       calendarWidget(),
+      //       Positioned(
+      //         top: 350,
+      //         left: 30,
+      //         height: 200,
+      //         width: 250,
+      //         child: periodWidget(),
+      //       ),
+      //       Positioned(
+      //         bottom: 25,
+      //         right: 20,
+      //         height: 50,
+      //         width: 50,
+      //         child: floatingButtonMore(),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
   Widget periodWidget() {
-    final filterByDate = widget.periods.where((period) => period['periodDate'] == choosenDate).toList();
+    debugPrint("INI PERIODS");
+    print(inspect(periods));
+    debugPrint("INI PERIODS");
+    final filterByDate = periods.where((period) => period['periodDate'].toString() == choosenDate.toString()).toList();
+    // final wkwk = periods.where((period) => period['idMON'] == 1).toList();
+
     // print(inspect(widget.periods[{'idMON'}]));
     // print(testObject["idMON"]);
     // print(inspect(resultBydate));
-    // print(inspect(choosenDate));
+    // String test = choosenDate.toString();
+    print(inspect(filterByDate));
 
+    debugPrint("period");
+    // print(decodedMap);
     return Column(
       children: filterByDate.map((data) {
           return Container(
@@ -95,14 +151,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.blue, 
-                  child: IconButton(
-                    highlightColor: Colors.blueGrey,
-                    icon: Icon(
-                      data['Icon'] ,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  ),
+                  // child: IconButton(
+                  //   highlightColor: Colors.blueGrey,
+                  //   icon: Icon(
+                  //     data['Icon'] ,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onPressed: () {},
+                  // ),
                 ),
                 Expanded(
                   child: Container(
@@ -201,5 +257,13 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) => const MyQRScanner(),
       )
     ); 
+    // periods.add(widget.period);
+    // var prefs = await SharedPreferences.getInstance();
+    // String encodedMap = json.encode(widget.period);
+
+    // // debugPrint("test");
+    // // print(inspect(encodedMap));
+    // // periods.ad
+    // prefs.setString('timeData', encodedMap);
   }
 }
