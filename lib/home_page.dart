@@ -25,14 +25,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  DateTime today = DateTime.now();
   DateTime choosenDate = DateTime(now.year, now.month, now.day);
-
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
 
   @override
   void dispose(){
     super.dispose();
+  }
+
+  void _onDaySelected(selectedDay, focusedDay) {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
+    final test = DateTime.parse(formattedDate);
+    setState(() {
+      choosenDate = test;
+      today = selectedDay;
+    });
   }
 
   @override
@@ -76,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // print(inspect(widget.periods[{'idMON'}]));
     // print(testObject["idMON"]);
     // print(inspect(resultBydate));
-    print(inspect(choosenDate));
+    // print(inspect(choosenDate));
 
     return Column(
       children: filterByDate.map((data) {
@@ -123,19 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
           locale: "en_US",
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
-          focusedDay: _focusedDay,
+          focusedDay: today,
           calendarFormat: _calendarFormat,
           startingDayOfWeek: StartingDayOfWeek.monday,
-          onDaySelected: (selectedDay, focusedDay) {
-            setState(() {
-              String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
-              final test = DateTime.parse(formattedDate);
-              choosenDate = test;
-            });
-          },
-          calendarStyle: CalendarStyle(
-            outsideDaysVisible: false,
-          ),
+          selectedDayPredicate: (day) => isSameDay(day, today),
+          onDaySelected: _onDaySelected,
+          // calendarStyle: CalendarStyle(
+          //   outsideDaysVisible: false,
+          // ),
         ),
         SizedBox(height: 0.8),
       ],

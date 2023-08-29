@@ -232,14 +232,14 @@ class _QRViewExampleState extends State<QRViewExample> {
     // final now = TimeOfDay.now();
     final now = DateTime.now();
     
-    if (now.hour >= 7 && now.hour <= 12) {
+    if (now.hour >= 7 && now.hour <= 15) {
       testObject = {
         "idMON" : 0,
         "Name" : "Morning",
         "Icon": Icons.done,
         "periodDate" : DateTime(now.year, now.month, now.day),
       };
-    } else if (now.hour >= 16 && now.hour <= 23) {
+    } else if (now.hour >= 15 && now.hour <= 23) {
       testObject = {
         "idMON" : 1,
         "Name" : "Night",
