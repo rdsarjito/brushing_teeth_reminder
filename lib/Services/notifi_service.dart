@@ -9,18 +9,13 @@ import 'package:get/get.dart';
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
- Get.to(const MyQRScanner());
-
+  Get.to(const MyQRScanner());
 }
 
 class NotificationService {
   
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
-      
-  void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
-   
-}
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -31,23 +26,22 @@ class NotificationService {
         requestBadgePermission: true,
         requestSoundPermission: true,
         onDidReceiveLocalNotification:
-            (int id, String? title, String? body, String? payload) async {});
+          (int id, String? title, String? body, String? payload) async {});
 
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
-        Get.to(const MyQRScanner());
-    },
 
-        onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
-          
-        );
+    await notificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
+        Get.to(const MyQRScanner());
+      },
+
+      onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
+    );
 
   }
 
   notificationDetails() {
-
     return const NotificationDetails(
       android: AndroidNotificationDetails('channelId', 'channelName',
         importance: Importance.high, priority: Priority.high,
@@ -58,28 +52,23 @@ class NotificationService {
     );
   }
 
-
-
-
   Future scheduleNotification(
       {id,
       String? title,
       String? body,
       String? payLoad,
       required DateTime scheduledNotificationDateTime}) async {
-          
-    return notificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.from(
-          scheduledNotificationDateTime,
-          tz.local,
-        ),
-        await notificationDetails(),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
+        return notificationsPlugin.zonedSchedule(
+          id,
+          title,
+          body,
+          tz.TZDateTime.from(
+            scheduledNotificationDateTime,
+            tz.local,
+          ),
+          await notificationDetails(),
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
-  }
-
+      }
 }

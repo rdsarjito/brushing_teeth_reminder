@@ -14,7 +14,6 @@ class MyHomePage extends StatefulWidget {
   final int fromOtherSide;
   final List<Map<String, dynamic>> periods;
   
-
   const MyHomePage({
     Key? key,
     this.fromOtherSide = 0,
