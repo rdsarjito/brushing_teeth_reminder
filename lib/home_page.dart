@@ -35,14 +35,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
+    getPrefs();
+    setPrefs();
+  }
 
+  void getPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     String? getPrefsPeriods = prefs.getString('prefsPeriods');
+    periods = List.from(json.decode(getPrefsPeriods!) as List);
+  }
 
-    if(getPrefsPeriods != null) {
-      periods = List.from(json.decode(getPrefsPeriods) as List);
-    }
-
+  void setPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
     periods.add(widget.period);
     String encodePrefsPeriods = json.encode(periods);
     debugPrint("WTF");
@@ -61,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-  final Future<String> _calculation = Future<String>.delayed(
-    const Duration(seconds: 1),
-    () => 'Data Loaded',
-  );
+    final Future<String> _calculation = Future<String>.delayed(
+      const Duration(seconds: 1),
+      () => 'Data Loaded',
+    );
     // periods.addAll(widget.period);
     // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(choosenDate);
     // debugPrint(formattedDate);
@@ -234,13 +238,5 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) => const MyQRScanner(),
       )
     ); 
-    // periods.add(widget.period);
-    // var prefs = await SharedPreferences.getInstance();
-    // String encodedMap = json.encode(widget.period);
-
-    // // debugPrint("test");
-    // // print(inspect(encodedMap));
-    // // periods.ad
-    // prefs.setString('timeData', encodedMap);
   }
 }
