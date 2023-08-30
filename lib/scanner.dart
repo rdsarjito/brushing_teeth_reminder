@@ -48,9 +48,9 @@ class _QRViewExampleState extends State<QRViewExample> {
 
     final now = DateTime.now();
     
-    if(now.hour >= 05 && now.hour <= 12) {
+    if(now.hour >= 05 && now.hour <= 16) {
       testObject = {
-        "idMON" : 2,
+        "idMON" : 4,
         "Name" : "Morning",
         "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };

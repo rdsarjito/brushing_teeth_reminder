@@ -35,23 +35,40 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    getPrefs();
-    setPrefs();
+
+    final prefs = await SharedPreferences.getInstance();
+    getPrefs(prefs);
+    setPrefs(prefs);
   }
 
-  void getPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
+  void getPrefs(prefs) {
     String? getPrefsPeriods = prefs.getString('prefsPeriods');
-    periods = List.from(json.decode(getPrefsPeriods!) as List);
+
+    if(getPrefsPeriods != null) {
+      periods = List.from(json.decode(getPrefsPeriods) as List);
+    }
+    debugPrint("INI GET");
+    print(inspect(periods));
+    debugPrint("INI GET");
+
   }
 
-  void setPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    periods.add(widget.period);
-    String encodePrefsPeriods = json.encode(periods);
-    debugPrint("WTF");
-    print(inspect(encodePrefsPeriods));
-    prefs.setString('prefsPeriods', encodePrefsPeriods);
+  void setPrefs(prefs) {
+    debugPrint("INI WIDGET");
+    print(inspect(widget.period));
+    debugPrint("INI WIDGET");
+    if(widget.period.toString() == {}.toString()){
+      debugPrint("HASIL NYA TRUE");
+    } else {
+      debugPrint("HASIL NYA FALSE");
+      periods.add(widget.period);
+      debugPrint("INI PUSH");
+      print(inspect(periods));
+      debugPrint("INI PUSH");
+      String encodePrefsPeriods = json.encode(periods);
+      prefs.setString('prefsPeriods', encodePrefsPeriods);
+    }
+
   }
 
   void _onDaySelected(selectedDay, focusedDay) {
@@ -109,9 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget periodWidget() {
-    debugPrint("INI PERIODS");
-    print(inspect(periods));
-    debugPrint("INI PERIODS");
+    // debugPrint("INI PERIODS");
+    // print(inspect(periods));
+    // debugPrint("INI PERIODS");
     final filterByDate = periods.where((period) => period['periodDate'].toString() == choosenDate.toString()).toList();
     // final wkwk = periods.where((period) => period['idMON'] == 1).toList();
 
