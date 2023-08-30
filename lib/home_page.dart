@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String? getPrefsPeriods = prefs.getString('prefsPeriods');
 
     if(getPrefsPeriods != null) {
-      periods = List.from(json.decode(getPrefsPeriods!) as List);
+      periods = List.from(json.decode(getPrefsPeriods) as List);
     }
 
     periods.add(widget.period);
@@ -101,29 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         }
       )
-
-      // body: Container(
-      //   // padding:EdgeInsets.all(10),
-      //   child: Stack(
-      //     children: <Widget>[
-      //       calendarWidget(),
-      //       Positioned(
-      //         top: 350,
-      //         left: 30,
-      //         height: 200,
-      //         width: 250,
-      //         child: periodWidget(),
-      //       ),
-      //       Positioned(
-      //         bottom: 25,
-      //         right: 20,
-      //         height: 50,
-      //         width: 50,
-      //         child: floatingButtonMore(),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -151,14 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.blue, 
-                  // child: IconButton(
-                  //   highlightColor: Colors.blueGrey,
-                  //   icon: Icon(
-                  //     data['Icon'] ,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onPressed: () {},
-                  // ),
+                  child: IconButton(
+                    highlightColor: Colors.blueGrey,
+                    icon: const Icon(
+                      Icons.done,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {},
+                  ),
                 ),
                 Expanded(
                   child: Container(
@@ -192,9 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
           startingDayOfWeek: StartingDayOfWeek.monday,
           selectedDayPredicate: (day) => isSameDay(day, today),
           onDaySelected: _onDaySelected,
-          // calendarStyle: CalendarStyle(
-          //   outsideDaysVisible: false,
-          // ),
+          calendarStyle: const CalendarStyle(
+            outsideDaysVisible: false,
+          ),
         ),
         SizedBox(height: 0.8),
       ],

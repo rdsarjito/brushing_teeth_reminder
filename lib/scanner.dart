@@ -52,14 +52,12 @@ class _QRViewExampleState extends State<QRViewExample> {
       testObject = {
         "idMON" : 0,
         "Name" : "Morning",
-        "Icon": Icons.done.toString(),
         "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
     } else if (now.hour >= 16 && now.minute <= 24) {
       testObject = {
         "idMON" : 1,
         "Name" : "Night",
-        "Icon": Icons.done.toString(),
         "periodDate" : DateTime(now.year, now.month, now.day).toString(),
       };
     }
