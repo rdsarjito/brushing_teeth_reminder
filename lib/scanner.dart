@@ -12,8 +12,9 @@ class MyQRScanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: QRViewExample(),
+    return Scaffold(
+      appBar: AppBar(title: const Text('QR Scanner')),
+      body: const QRViewExample(),
     );
   }
 }

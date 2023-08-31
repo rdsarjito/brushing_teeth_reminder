@@ -68,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
       String encodePrefsPeriods = json.encode(periods);
       prefs.setString('prefsPeriods', encodePrefsPeriods);
     }
-
   }
 
   void _onDaySelected(selectedDay, focusedDay) {
