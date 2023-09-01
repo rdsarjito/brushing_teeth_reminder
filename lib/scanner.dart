@@ -43,34 +43,34 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   // @override
-  void _test() {
-    Map<String, dynamic> testObject = {};
+  // void _test() {
+  //   Map<String, dynamic> testObject = {};
 
-    final now = DateTime.now();
+  //   final now = DateTime.now();
     
-    if(now.hour >= 05 && now.hour <= 16) {
-      testObject = {
-        "idMON" : 4,
-        "Name" : "Morning",
-        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
-      };
-    } else if (now.hour >= 16 && now.minute <= 24) {
-      testObject = {
-        "idMON" : 1,
-        "Name" : "Night",
-        "periodDate" : DateTime(now.year, now.month, now.day).toString(),
-      };
-    }
+  //   if(now.hour >= 05 && now.hour <= 16) {
+  //     testObject = {
+  //       "idMON" : 4,
+  //       "Name" : "Morning",
+  //       "periodDate" : DateTime(now.year, now.month, now.day).toString(),
+  //     };
+  //   } else if (now.hour >= 16 && now.minute <= 24) {
+  //     testObject = {
+  //       "idMON" : 1,
+  //       "Name" : "Night",
+  //       "periodDate" : DateTime(now.year, now.month, now.day).toString(),
+  //     };
+  //   }
     
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => MyHomePage(period: testObject),
-    ));
+  //   Navigator.push(
+  //   context,
+  //   MaterialPageRoute(
+  //     builder: (context) => MyHomePage(period: testObject),
+  //   ));
 
-    controller!.dispose();
-    controller!.stopCamera();
-  }
+  //   controller!.dispose();
+  //   controller!.stopCamera();
+  // }
 
 
   @override
@@ -79,7 +79,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
-          ElevatedButton(onPressed: _test, child: Text("123")),
+          // ElevatedButton(onPressed: _test, child: Text("123")),
           Expanded(
             flex: 1,
             child: FittedBox(
