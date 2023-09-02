@@ -44,7 +44,6 @@ class _MyNotificationState extends State<MyNotification> {
                     highlightColor: Colors.blueGrey,
                     icon: Icon(
                       data['Icon'] ,
-                      // Icons.wb_sunny_rounded,
                       color: Colors.white,
                     ),
                     onPressed: () {},
