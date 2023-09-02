@@ -54,16 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void setPrefs(prefs) {
-    debugPrint("INI WIDGET");
-    print(inspect(widget.period));
-    debugPrint("INI WIDGET");
+    // debugPrint("INI WIDGET");
+    // print(inspect(widget.period));
+    // debugPrint("INI WIDGET");
     if(widget.period.toString() == {}.toString()){
-      debugPrint("HASIL NYA TRUE");
+      // debugPrint("HASIL NYA TRUE");
     } else {
-      debugPrint("HASIL NYA FALSE");
+      // debugPrint("HASIL NYA FALSE");
       periods.add(widget.period);
-      debugPrint("INI PUSH");
-      print(inspect(periods));
+      // debugPrint("INI PUSH");
+      // print(inspect(periods));
       debugPrint("INI PUSH");
       String encodePrefsPeriods = json.encode(periods);
       prefs.setString('prefsPeriods', encodePrefsPeriods);
