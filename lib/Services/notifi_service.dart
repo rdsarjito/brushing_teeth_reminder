@@ -1,17 +1,10 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:get/get.dart';
 
 import 'package:scanner/scanner.dart';
 
-import 'package:get/get.dart';
-
-@pragma('vm:entry-point')
-void notificationTapBackground(NotificationResponse notificationResponse) {
-  Get.to(const MyQRScanner());
-}
-
 class NotificationService {
-  
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -34,7 +27,7 @@ class NotificationService {
         Get.to(const MyQRScanner());
       },
 
-      onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
+      // onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );
 
   }
