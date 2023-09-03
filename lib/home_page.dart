@@ -135,9 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // print(testObject["idMON"]);
     // print(inspect(resultBydate));
     // String test = choosenDate.toString();
-    print(inspect(filterByDate));
+    // print(inspect(filterByDate));
 
-    debugPrint("period");
+    // debugPrint("period");
     // print(decodedMap);
     return Column(
       children: filterByDate.map((data) {
