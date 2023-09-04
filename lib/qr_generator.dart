@@ -35,10 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Center(
             child: QrImage(
-              data: data,
-              backgroundColor: Colors.white,
-              version: QrVersions.auto,
-              size: 300.0,
+
             ),
           ),
           SizedBox(
