@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final Future<String> _calculation = Future<String>.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () => 'Data Loaded',
     );
     // periods.addAll(widget.period);
