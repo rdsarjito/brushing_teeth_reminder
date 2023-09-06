@@ -15,12 +15,12 @@ class ButtonRama extends StatelessWidget {
   Widget build(BuildContext context){
     return Column(
       children: [
-        // ElevatedButton(
-        //   onPressed: () {
-        //     onPencet("Rama");
-        //   },
-        //   child: Text("Test $tulisan"),
-        // )
+        ElevatedButton(
+          onPressed: () {
+            onPencet("Rama");
+          },
+          child: Text("Test $tulisan"),
+        )
       ],
     );
   }

@@ -47,9 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
     if(getPrefsPeriods != null) {
       periods = List.from(json.decode(getPrefsPeriods) as List);
     }
-    debugPrint("INI GET");
-    print(inspect(periods));
-    debugPrint("INI GET");
+    // debugPrint("INI GET");
+    // print(inspect(periods));
+    // debugPrint("INI GET");
 
   }
 
